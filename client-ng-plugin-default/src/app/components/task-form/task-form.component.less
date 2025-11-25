@@ -1,0 +1,213 @@
+/**
+ * 任务表单组件样式
+ */
+
+.form-container {
+  .form-group {
+    margin-bottom: 24px;
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-size: 16px;
+      color: #333;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e5e5e5;
+      border-radius: 8px;
+      font-size: 16px;
+      font-family: inherit;
+      transition: all 0.2s ease;
+      background: #fff;
+      
+      &:focus {
+        outline: none;
+        border-color: #007aff;
+        box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+      }
+      
+      &.error {
+        border-color: #ff3b30;
+        
+        &:focus {
+          border-color: #ff3b30;
+          box-shadow: 0 0 0 3px rgba(255, 59, 48, 0.1);
+        }
+      }
+      
+      &::placeholder {
+        color: #999;
+      }
+    }
+    
+    textarea.form-control {
+      resize: vertical;
+      min-height: 100px;
+      line-height: 1.5;
+    }
+    
+    select.form-control {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 12px center;
+      background-repeat: no-repeat;
+      background-size: 16px;
+      padding-right: 40px;
+      appearance: none;
+    }
+    
+    .form-help {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+      font-size: 14px;
+      
+      .char-count {
+        color: #666;
+        
+        &:hover {
+          color: #333;
+        }
+      }
+      
+      .error-text {
+        color: #ff3b30;
+        font-weight: 500;
+      }
+      
+      .help-text {
+        color: #999;
+      }
+    }
+  }
+  
+  .form-actions {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    background: #fff;
+    border-top: 1px solid #e5e5e5;
+    display: flex;
+    gap: 12px;
+    z-index: 100;
+    
+    button {
+      flex: 1;
+      padding: 14px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+      
+      &.cancel {
+        background: #f5f5f5;
+        color: #333;
+        border: 1px solid #e5e5e5;
+        
+        &:hover {
+          background: #e5e5e5;
+        }
+        
+        &:active {
+          transform: scale(0.98);
+        }
+      }
+      
+      &.save {
+        background: #007aff;
+        color: white;
+        
+        &:hover:not(:disabled) {
+          background: #0056cc;
+        }
+        
+        &:active:not(:disabled) {
+          transform: scale(0.98);
+        }
+        
+        &:disabled {
+          background: #ccc;
+          cursor: not-allowed;
+          opacity: 0.6;
+        }
+      }
+    }
+  }
+}
+
+// 移动端优化
+@media (max-width: 375px) {
+  .form-container {
+    .form-group {
+      margin-bottom: 20px;
+      
+      label {
+        font-size: 15px;
+      }
+      
+      .form-control {
+        padding: 10px 14px;
+        font-size: 15px;
+      }
+    }
+    
+    .form-actions {
+      padding: 12px;
+      
+      button {
+        padding: 12px 16px;
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+// 输入框焦点动画
+@keyframes focusPulse {
+  0% {
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(0, 122, 255, 0.05);
+  }
+  100% {
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+  }
+}
+
+.form-control:focus {
+  animation: focusPulse 0.3s ease;
+}
+
+// 错误状态动画
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.form-control.error {
+  animation: shake 0.3s ease;
+}
+
+// 字符计数颜色变化
+.char-count {
+  transition: color 0.2s ease;
+  
+  &.warning {
+    color: #ff9500;
+  }
+  
+  &.error {
+    color: #ff3b30;
+  }
+}

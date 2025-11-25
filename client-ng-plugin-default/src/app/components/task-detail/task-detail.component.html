@@ -1,0 +1,111 @@
+<div class="page-container">
+  <!-- 顶部导航栏 -->
+  <header class="header">
+    <button class="back-btn" (click)="goBack()">←</button>
+    <h1 class="title">任务详情</h1>
+    <button class="menu-btn" (click)="toggleActionMenu()">⋯</button>
+  </header>
+
+  <!-- 加载状态 -->
+  <div class="loading-container" *ngIf="isLoading">
+    <div class="loading-spinner">加载中...</div>
+  </div>
+
+  <!-- 任务详情内容 -->
+  <div class="detail-container" *ngIf="!isLoading && task">
+    <!-- 任务基本信息卡片 -->
+    <div class="detail-card">
+      <div class="detail-header">
+        <h2 class="detail-title">{{ task.title }}</h2>
+        <div class="detail-status">
+          <span class="status-badge" [class]="getStatusClass()">
+            {{ getStatusText() }}
+          </span>
+          <span class="priority-badge" [class]="getPriorityClass(task.priority)">
+            {{ getPriorityText(task.priority) }}
+          </span>
+        </div>
+      </div>
+      
+      <!-- 任务描述 -->
+      <div class="detail-section" *ngIf="task.description">
+        <div class="section-title">任务描述</div>
+        <div class="section-content">{{ task.description }}</div>
+      </div>
+
+      <!-- 时间信息 -->
+      <div class="detail-section">
+        <div class="section-title">时间信息</div>
+        <div class="time-info">
+          <div class="time-row">
+            <span class="time-label">创建时间：</span>
+            <span class="time-value">{{ formatCreatedAt(task.createdAt) }}</span>
+          </div>
+          <div class="time-row" *ngIf="task.dueDate">
+            <span class="time-label">截止时间：</span>
+            <span class="time-value" [class.overdue]="isOverdue()">
+              {{ formatDueDate(task.dueDate) }}
+            </span>
+          </div>
+          <div class="time-row" *ngIf="task.completedAt">
+            <span class="time-label">完成时间：</span>
+            <span class="time-value">{{ formatCompletedAt(task.completedAt) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 快速操作按钮 -->
+    <div class="quick-actions">
+      <button class="action-btn primary" (click)="toggleTaskStatus()">
+        <span class="btn-icon">{{ task.status === 'completed' ? '↺' : '✓' }}</span>
+        <span class="btn-text">{{ task.status === 'completed' ? '标记未完成' : '标记完成' }}</span>
+      </button>
+      
+      <button class="action-btn secondary" (click)="editTask()">
+        <span class="btn-icon">✎</span>
+        <span class="btn-text">编辑任务</span>
+      </button>
+      
+      <button class="action-btn secondary" (click)="duplicateTask()">
+        <span class="btn-icon">⊕</span>
+        <span class="btn-text">复制任务</span>
+      </button>
+      
+      <button class="action-btn secondary" (click)="setReminder()">
+        <span class="btn-icon">⏰</span>
+        <span class="btn-text">设置提醒</span>
+      </button>
+    </div>
+
+    <!-- 危险操作区域 -->
+    <div class="danger-zone">
+      <button class="danger-btn" (click)="deleteTask()">
+        <span class="btn-icon">🗑</span>
+        <span class="btn-text">删除任务</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 操作菜单 -->
+  <div class="action-menu-overlay" *ngIf="showActionMenu" (click)="closeActionMenu()"></div>
+  <div class="action-menu" *ngIf="showActionMenu" (click)="$event.stopPropagation()">
+    <button class="menu-item" (click)="editTask(); closeActionMenu()">
+      <span class="menu-icon">✎</span>
+      编辑任务
+    </button>
+    <button class="menu-item" (click)="duplicateTask(); closeActionMenu()">
+      <span class="menu-icon">⊕</span>
+      复制任务
+    </button>
+    <button class="menu-item" (click)="setReminder(); closeActionMenu()">
+      <span class="menu-icon">⏰</span>
+      设置提醒
+    </button>
+    <div class="menu-divider"></div>
+    <button class="menu-item danger" (click)="deleteTask(); closeActionMenu()">
+      <span class="menu-icon">🗑</span>
+      删除任务
+    </button>
+  </div>
+</div>

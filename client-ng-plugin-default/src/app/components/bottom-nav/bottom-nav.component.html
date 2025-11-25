@@ -1,0 +1,20 @@
+<nav class="bottom-nav">
+  <button 
+    *ngFor="let item of navItems; trackBy: trackByPath"
+    class="nav-item" 
+    [ngClass]="getNavItemClass(item)"
+    (click)="navigateTo(item.path)"
+  >
+    <div class="nav-icon-container">
+      <i class="fa {{ item.icon }}"></i>
+      <!-- 提醒徽章 -->
+      <span 
+        class="reminder-badge" 
+        *ngIf="item.path === '/' && shouldShowReminderBadge()"
+      >
+        {{ getReminderBadgeText() }}
+      </span>
+    </div>
+    <span class="nav-text">{{ item.text }}</span>
+  </button>
+</nav>

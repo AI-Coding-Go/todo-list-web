@@ -1,0 +1,123 @@
+<div class="page-container">
+  <!-- 顶部标题栏 -->
+  <header class="header">
+    <h1 class="title">待办清单</h1>
+  </header>
+
+  <!-- 提醒条 -->
+  <div class="reminder-container" *ngIf="activeReminders.length > 0">
+    <div 
+      class="reminder-bar" 
+      *ngFor="let reminder of activeReminders; trackBy: trackByReminderId"
+    >
+      <div class="reminder-content">
+        <strong>{{ reminder.message }}</strong>
+        <span *ngIf="reminder.dueDate" class="reminder-time">
+          ({{ formatDueDate(reminder.dueDate) }})
+        </span>
+      </div>
+      <div class="reminder-actions">
+        <button (click)="handleReminder(reminder)">查看任务</button>
+        <button (click)="snoozeReminder(reminder)">稍后提醒</button>
+        <button (click)="closeReminder(reminder)">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 任务列表容器 -->
+  <div class="task-list-container">
+    <!-- 筛选标签 -->
+    <div class="filter-tabs">
+      <button 
+        class="tab" 
+        [class.active]="currentFilter === 'all'"
+        (click)="setFilter('all')"
+      >
+        全部
+      </button>
+      <button 
+        class="tab" 
+        [class.active]="currentFilter === 'pending'"
+        (click)="setFilter('pending')"
+      >
+        未完成
+      </button>
+      <button 
+        class="tab" 
+        [class.active]="currentFilter === 'completed'"
+        (click)="setFilter('completed')"
+      >
+        已完成
+      </button>
+    </div>
+
+    <!-- 排序按钮 -->
+    <div class="sort-section">
+      <button class="sort-btn" (click)="toggleSortOptions()">
+        排序：{{ getSortText(currentSort) }}
+        <span class="sort-arrow" [class.rotated]="showSortOptions">▼</span>
+      </button>
+      
+      <!-- 排序选项 -->
+      <div class="sort-options" *ngIf="showSortOptions">
+        <div class="sort-option" (click)="setSort('newest')">最新添加</div>
+        <div class="sort-option" (click)="setSort('dueDate')">即将截止</div>
+        <div class="sort-option" (click)="setSort('priority')">优先级</div>
+      </div>
+    </div>
+
+    <!-- 任务列表 -->
+    <div class="task-list" *ngIf="!isEmpty; else emptyState">
+      <div 
+        class="task-item" 
+        *ngFor="let task of tasks; trackBy: trackByTaskId"
+        (click)="viewTaskDetail(task.id)"
+        [class.selected]="selectedTaskId === task.id"
+      >
+        <!-- 复选框 -->
+        <input 
+          type="checkbox" 
+          class="checkbox"
+          [checked]="task.status === 'completed'"
+          (click)="toggleTaskStatus(task.id, $event)"
+        >
+
+        <!-- 任务内容 -->
+        <div class="task-content">
+          <div class="task-title" [class.completed]="task.status === 'completed'">
+            <span 
+              class="priority-label" 
+              [ngClass]="'priority-' + task.priority"
+            ></span>
+            {{ truncateTitle(task.title) }}
+          </div>
+          <div 
+            class="task-time" 
+            *ngIf="task.dueDate"
+            [class.overdue]="isOverdue(task)"
+          >
+            <span *ngIf="isOverdue(task)">逾期 </span>
+            {{ formatDueDate(task.dueDate) }}
+          </div>
+        </div>
+
+        <!-- 任务操作按钮 -->
+        <div class="task-actions" *ngIf="selectedTaskId === task.id">
+          <button (click)="editTask(task.id, $event)">编辑</button>
+          <button (click)="deleteTask(task.id, $event)">删除</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 空状态 -->
+    <ng-template #emptyState>
+      <div class="empty-state">
+        <div class="empty-icon">📝</div>
+        <div class="empty-text">{{ emptyText }}</div>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- 悬浮新增按钮 -->
+  <button class="fab" (click)="addTask()">+</button>
+</div>

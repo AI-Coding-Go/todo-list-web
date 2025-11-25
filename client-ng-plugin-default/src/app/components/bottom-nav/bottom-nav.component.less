@@ -1,0 +1,189 @@
+/**
+ * 底部导航组件样式
+ */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #fff;
+  border-top: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 1000;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+  
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    transition: all 0.2s ease;
+    position: relative;
+    flex: 1;
+    max-width: 120px;
+    
+    &:hover {
+      background: #f8f9fa;
+    }
+    
+    &.active {
+      color: #007aff;
+      
+      .nav-icon-container i {
+        transform: scale(1.1);
+      }
+      
+      .nav-text {
+        font-weight: 600;
+      }
+    }
+    
+    .nav-icon-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      i {
+        font-size: 20px;
+        transition: all 0.2s ease;
+      }
+      
+      .reminder-badge {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: #ff3b30;
+        color: white;
+        border-radius: 10px;
+        min-width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1;
+        padding: 0 6px;
+        box-shadow: 0 2px 4px rgba(255, 59, 48, 0.3);
+        animation: badgePulse 2s infinite;
+      }
+    }
+    
+    .nav-text {
+      font-size: 12px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+  }
+}
+
+// 徽章动画
+@keyframes badgePulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 2px 4px rgba(255, 59, 48, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(255, 59, 48, 0.5);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 2px 4px rgba(255, 59, 48, 0.3);
+  }
+}
+
+// 响应式适配
+@media (max-width: 375px) {
+  .bottom-nav {
+    height: 56px;
+    
+    .nav-item {
+      padding: 6px 12px;
+      gap: 3px;
+      
+      .nav-icon-container i {
+        font-size: 18px;
+      }
+      
+      .nav-text {
+        font-size: 11px;
+      }
+      
+      .nav-icon-container .reminder-badge {
+        min-width: 18px;
+        height: 18px;
+        font-size: 11px;
+        top: -6px;
+        right: -6px;
+      }
+    }
+  }
+}
+
+// 深色主题支持
+@media (prefers-color-scheme: dark) {
+  .bottom-nav {
+    background: #1c1c1e;
+    border-top-color: #38383a;
+    
+    .nav-item {
+      color: #98989d;
+      
+      &:hover {
+        background: #2c2c2e;
+      }
+      
+      &.active {
+        color: #0a84ff;
+      }
+    }
+  }
+}
+
+// 导航项点击效果
+.nav-item {
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+// 安全区域适配（iPhone X及以上）
+@supports (padding: max(0px)) {
+  .bottom-nav {
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+    height: calc(60px + max(0px, env(safe-area-inset-bottom)));
+  }
+}
+
+// 横屏适配
+@media (orientation: landscape) and (max-height: 500px) {
+  .bottom-nav {
+    height: 50px;
+    
+    .nav-item {
+      padding: 4px 8px;
+      gap: 2px;
+      
+      .nav-icon-container i {
+        font-size: 16px;
+      }
+      
+      .nav-text {
+        font-size: 10px;
+      }
+    }
+  }
+}

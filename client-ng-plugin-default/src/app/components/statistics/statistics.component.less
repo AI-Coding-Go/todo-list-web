@@ -1,0 +1,253 @@
+/**
+ * 统计组件样式
+ */
+
+.stats-container {
+  .stats-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    
+    .tab {
+      flex: 1;
+      padding: 12px 16px;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background: #f8f9fa;
+      }
+      
+      &.active {
+        background: #007aff;
+        color: white;
+        border-color: #007aff;
+      }
+    }
+  }
+  
+  .stats-content {
+    .chart-container {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      height: 300px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      
+      canvas {
+        max-height: 260px;
+      }
+    }
+    
+    .stats-summary {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      
+      h3 {
+        margin: 0 0 16px 0;
+        font-size: 18px;
+        font-weight: 600;
+        color: #333;
+      }
+      
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        
+        .summary-item {
+          text-align: center;
+          padding: 16px;
+          background: #f8f9fa;
+          border-radius: 8px;
+          
+          .value {
+            font-size: 24px;
+            font-weight: 600;
+            color: #007aff;
+            margin-bottom: 4px;
+          }
+          
+          .label {
+            font-size: 14px;
+            color: #666;
+          }
+        }
+      }
+      
+      .priority-stats {
+        .priority-item {
+          display: flex;
+          align-items: center;
+          padding: 12px 0;
+          border-bottom: 1px solid #f5f5f5;
+          
+          &:last-child {
+            border-bottom: none;
+          }
+          
+          .priority-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 12px;
+            
+            &.high {
+              background: #ff3b30;
+            }
+            
+            &.medium {
+              background: #ff9500;
+            }
+            
+            &.low {
+              background: #34c759;
+            }
+          }
+          
+          .priority-label {
+            flex: 1;
+            font-size: 16px;
+            color: #333;
+          }
+          
+          .priority-count {
+            font-size: 16px;
+            font-weight: 500;
+            color: #666;
+          }
+        }
+      }
+    }
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: #999;
+  
+  .empty-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+  }
+  
+  .empty-text {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}
+
+// 响应式适配
+@media (max-width: 375px) {
+  .stats-container {
+    .stats-tabs {
+      gap: 6px;
+      margin-bottom: 16px;
+      
+      .tab {
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+    }
+    
+    .stats-content {
+      .chart-container {
+        padding: 16px;
+        height: 280px;
+      }
+      
+      .stats-summary {
+        padding: 16px;
+        
+        h3 {
+          font-size: 16px;
+          margin-bottom: 12px;
+        }
+        
+        .summary-grid {
+          gap: 12px;
+          
+          .summary-item {
+            padding: 12px;
+            
+            .value {
+              font-size: 20px;
+            }
+            
+            .label {
+              font-size: 13px;
+            }
+          }
+        }
+        
+        .priority-stats {
+          .priority-item {
+            padding: 10px 0;
+            
+            .priority-dot {
+              width: 10px;
+              height: 10px;
+              margin-right: 10px;
+            }
+            
+            .priority-label {
+              font-size: 15px;
+            }
+            
+            .priority-count {
+              font-size: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// 图表容器动画
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chart-container,
+.stats-summary {
+  animation: fadeInUp 0.4s ease;
+}
+
+.stats-summary {
+  animation-delay: 0.1s;
+}
+
+// 标签切换动画
+.stats-tabs .tab {
+  position: relative;
+  
+  &.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+  }
+}

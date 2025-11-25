@@ -1,0 +1,605 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 移动端H5待办清单样式 */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+// 通用样式
+.page-container {
+  min-height: 100vh;
+  padding-bottom: 60px; // 为底部导航栏留空间
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  
+  .back-btn {
+    position: absolute;
+    left: 16px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .action-btn {
+    position: absolute;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #007aff;
+    cursor: pointer;
+  }
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #fff;
+  border-top: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 1000;
+  
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    
+    &.active {
+      color: #007aff;
+    }
+    
+    .icon {
+      font-size: 20px;
+    }
+    
+    .text {
+      font-size: 12px;
+    }
+  }
+}
+
+.fab {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #007aff;
+  color: white;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+  z-index: 999;
+}
+
+// 任务列表样式
+.task-list-container {
+  padding: 76px 16px 0;
+  
+  .filter-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    
+    .tab {
+      padding: 8px 16px;
+      border: 1px solid #e5e5e5;
+      border-radius: 20px;
+      background: #fff;
+      cursor: pointer;
+      
+      &.active {
+        background: #007aff;
+        color: white;
+        border-color: #007aff;
+      }
+    }
+  }
+  
+  .sort-btn {
+    padding: 8px 12px;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+    margin-bottom: 16px;
+  }
+  
+  .task-item {
+    background: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    
+    .checkbox {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+    
+    .task-content {
+      flex: 1;
+      
+      .task-title {
+        font-size: 16px;
+        margin-bottom: 4px;
+        
+        &.completed {
+          text-decoration: line-through;
+          color: #999;
+        }
+        
+        .priority-label {
+          display: inline-block;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          margin-right: 8px;
+          
+          &.high { background: #ff3b30; }
+          &.medium { background: #ff9500; }
+          &.low { background: #34c759; }
+        }
+      }
+      
+      .task-time {
+        font-size: 14px;
+        color: #666;
+        
+        &.overdue {
+          color: #ff3b30;
+        }
+      }
+    }
+    
+    .task-actions {
+      display: none;
+      gap: 8px;
+      
+      button {
+        padding: 4px 8px;
+        border: 1px solid #e5e5e5;
+        border-radius: 4px;
+        background: #fff;
+        cursor: pointer;
+      }
+    }
+    
+    &:hover .task-actions {
+      display: flex;
+    }
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+  }
+}
+
+// 表单样式
+.form-container {
+  padding: 76px 16px 80px;
+  
+  .form-group {
+    margin-bottom: 20px;
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      font-size: 16px;
+      
+      &:focus {
+        outline: none;
+        border-color: #007aff;
+      }
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+  }
+  
+  .form-actions {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    background: #fff;
+    border-top: 1px solid #e5e5e5;
+    display: flex;
+    gap: 12px;
+    
+    button {
+      flex: 1;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      
+      &.cancel {
+        background: #f5f5f5;
+        border: 1px solid #e5e5e5;
+      }
+      
+      &.save {
+        background: #007aff;
+        color: white;
+        border: none;
+      }
+    }
+  }
+}
+
+// 任务详情样式
+.detail-container {
+  padding: 76px 16px 80px;
+  
+  .detail-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 16px;
+    
+    .detail-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      
+      .priority-label {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        
+        &.high { background: #ff3b30; }
+        &.medium { background: #ff9500; }
+        &.low { background: #34c759; }
+      }
+    }
+    
+    .detail-row {
+      margin-bottom: 12px;
+      
+      .label {
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+      
+      .value {
+        color: #666;
+        
+        &.overdue {
+          color: #ff3b30;
+        }
+        
+        &.completed {
+          text-decoration: line-through;
+          color: #999;
+        }
+      }
+    }
+  }
+  
+  .detail-actions {
+    display: flex;
+    gap: 12px;
+    
+    button {
+      flex: 1;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      
+      &.edit {
+        background: #007aff;
+        color: white;
+        border: none;
+      }
+      
+      &.delete {
+        background: #ff3b30;
+        color: white;
+        border: none;
+      }
+      
+      &.toggle {
+        background: #34c759;
+        color: white;
+        border: none;
+      }
+    }
+  }
+}
+
+// 统计页面样式
+.stats-container {
+  padding: 76px 16px 0;
+  
+  .stats-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    
+    .tab {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      text-align: center;
+      
+      &.active {
+        background: #007aff;
+        color: white;
+        border-color: #007aff;
+      }
+    }
+  }
+  
+  .chart-container {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 16px;
+    height: 300px;
+  }
+  
+  .stats-summary {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      
+      .summary-item {
+        text-align: center;
+        
+        .value {
+          font-size: 24px;
+          font-weight: 600;
+          color: #007aff;
+        }
+        
+        .label {
+          font-size: 14px;
+          color: #666;
+        }
+      }
+    }
+  }
+}
+
+// 设置页面样式
+.settings-container {
+  padding: 76px 16px 0;
+  
+  .settings-section {
+    background: #fff;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    
+    .section-title {
+      padding: 16px;
+      border-bottom: 1px solid #e5e5e5;
+      font-weight: 600;
+    }
+    
+    .setting-item {
+      padding: 16px;
+      border-bottom: 1px solid #e5e5e5;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      &:last-child {
+        border-bottom: none;
+      }
+      
+      .setting-label {
+        flex: 1;
+      }
+      
+      .setting-control {
+        .toggle-switch {
+          position: relative;
+          width: 48px;
+          height: 28px;
+          background: #ccc;
+          border-radius: 14px;
+          cursor: pointer;
+          transition: background 0.3s;
+          
+          &.active {
+            background: #007aff;
+          }
+          
+          .toggle-thumb {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+          }
+          
+          &.active .toggle-thumb {
+            transform: translateX(20px);
+          }
+        }
+      }
+    }
+  }
+}
+
+// 提醒条样式
+.reminder-bar {
+  position: fixed;
+  top: 56px;
+  left: 16px;
+  right: 16px;
+  background: #ff9500;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(255, 149, 0, 0.3);
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  .reminder-content {
+    flex: 1;
+  }
+  
+  .reminder-actions {
+    display: flex;
+    gap: 8px;
+    
+    button {
+      padding: 4px 8px;
+      border: 1px solid white;
+      border-radius: 4px;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      font-size: 12px;
+    }
+  }
+}
+
+// 确认对话框样式
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  
+  .modal {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 20px;
+    max-width: 320px;
+    width: 100%;
+    
+    .modal-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    
+    .modal-content {
+      margin-bottom: 24px;
+      text-align: center;
+      color: #666;
+    }
+    
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      
+      button {
+        flex: 1;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        
+        &.cancel {
+          background: #f5f5f5;
+          border: 1px solid #e5e5e5;
+        }
+        
+        &.confirm {
+          background: #007aff;
+          color: white;
+          border: none;
+        }
+      }
+    }
+  }
+}
+
+// 响应式适配
+@media (max-width: 375px) {
+  .task-list-container,
+  .form-container,
+  .detail-container,
+  .stats-container,
+  .settings-container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}

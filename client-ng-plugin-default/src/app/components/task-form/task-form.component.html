@@ -1,0 +1,102 @@
+<div class="page-container">
+  <!-- 顶部导航栏 -->
+  <header class="header">
+    <button class="back-btn" (click)="cancel()">←</button>
+    <h1 class="title">{{ pageTitle }}</h1>
+  </header>
+
+  <!-- 表单容器 -->
+  <div class="form-container">
+    <form (ngSubmit)="saveTask()">
+      <!-- 任务标题 -->
+      <div class="form-group">
+        <label for="title">任务标题 *</label>
+        <input 
+          type="text" 
+          id="title"
+          class="form-control"
+          [(ngModel)]="formData.title"
+          name="title"
+          placeholder="请输入任务标题"
+          maxlength="50"
+          (input)="onTitleChange()"
+          [class.error]="errors.title"
+        >
+        <div class="form-help">
+          <span class="char-count">{{ getTitleCharCount() }}/50</span>
+          <span class="error-text" *ngIf="errors.title">{{ errors.title }}</span>
+        </div>
+      </div>
+
+      <!-- 任务描述 -->
+      <div class="form-group">
+        <label for="description">任务描述</label>
+        <textarea 
+          id="description"
+          class="form-control"
+          [(ngModel)]="formData.description"
+          name="description"
+          placeholder="请输入任务描述（可选）"
+          maxlength="500"
+          rows="4"
+          (input)="onDescriptionChange()"
+        ></textarea>
+        <div class="form-help">
+          <span class="char-count">{{ formData.description.length }}/500</span>
+        </div>
+      </div>
+
+      <!-- 截止时间 -->
+      <div class="form-group">
+        <label for="dueDate">截止时间</label>
+        <input 
+          type="datetime-local" 
+          id="dueDate"
+          class="form-control"
+          [(ngModel)]="formData.dueDate"
+          name="dueDate"
+          (change)="onDueDateChange()"
+        >
+        <div class="form-help">
+          <span class="help-text">可选，设置任务截止时间</span>
+        </div>
+      </div>
+
+      <!-- 优先级 -->
+      <div class="form-group">
+        <label for="priority">优先级</label>
+        <select 
+          id="priority"
+          class="form-control"
+          [(ngModel)]="formData.priority"
+          name="priority"
+          (change)="onPriorityChange()"
+        >
+          <option 
+            *ngFor="let option of priorityOptions" 
+            [value]="option.value"
+          >
+            {{ option.label }}
+          </option>
+        </select>
+        <div class="form-help">
+          <span class="help-text">设置任务优先级</span>
+        </div>
+      </div>
+
+      <!-- 表单操作按钮 -->
+      <div class="form-actions">
+        <button type="button" class="cancel" (click)="cancel()">
+          取消
+        </button>
+        <button 
+          type="submit" 
+          class="save"
+          [disabled]="!canSave"
+        >
+          {{ saveButtonText }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
