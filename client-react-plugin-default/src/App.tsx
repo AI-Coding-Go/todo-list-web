@@ -7,6 +7,7 @@ import { TaskListPage } from './pages/TaskListPage';
 import { TaskDetailPage } from './pages/TaskDetailPage';
 import { StatisticsPage } from './pages/StatisticsPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { TestPage } from './pages/TestPage';
 import { ReminderBar } from './components/reminder/ReminderBar';
 import { useTasks } from './hooks/useTasks';
 import { useReminder } from './hooks/useReminder';
@@ -68,6 +69,17 @@ export const App: React.FC = () => {
         path: '/settings',
         component: SettingsPage,
         props: { 
+          onNavigate: handleNavigate,
+          onBack: () => handleNavigate('/'),
+        },
+      };
+    }
+
+    if (currentPath === '/test') {
+      return {
+        path: '/test',
+        component: TestPage,
+        props: {
           onNavigate: handleNavigate,
           onBack: () => handleNavigate('/'),
         },
