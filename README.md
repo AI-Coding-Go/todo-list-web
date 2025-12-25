@@ -16,6 +16,22 @@
 | 数据统计 | Chart.js 图表展示完成率、趋势、状态分布 |
 | 提醒功能 | 长轮询获取提醒，浏览器桌面通知 |
 
+## 应用截图
+
+> **注意**：Angular 版本和 React 版本的 UI 显示效果完全一致
+
+<img src="./screenshot/Jietu20251225-180708@2x.jpg" alt="应用截图1" width="300" />
+<img src="./screenshot/Jietu20251225-180728@2x.jpg" alt="应用截图2" width="300" />
+<img src="./screenshot/Jietu20251225-180757@2x.jpg" alt="应用截图3" width="300" />
+
+<img src="./screenshot/Jietu20251225-180831@2x.jpg" alt="应用截图4" width="300" />
+<img src="./screenshot/Jietu20251225-180859@2x.jpg" alt="应用截图5" width="300" />
+<img src="./screenshot/Jietu20251225-180916@2x.jpg" alt="应用截图6" width="300" />
+
+<img src="./screenshot/Jietu20251225-180927@2x.jpg" alt="应用截图7" width="300" />
+<img src="./screenshot/Jietu20251225-180949@2x.jpg" alt="应用截图8" width="300" />
+<img src="./screenshot/Jietu20251225-181023@2x.jpg" alt="应用截图9" width="300" />
+
 ## 技术栈对比
 
 | 技术选型 | Angular 版本 | React 版本 |
