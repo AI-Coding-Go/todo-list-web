@@ -1,0 +1,152 @@
+/**
+ * 任务详情页样式
+ */
+
+.task-detail-page {
+  min-height: 100vh;
+  background-color: #f3f4f6;
+  padding-bottom: 2rem;
+}
+
+.task-detail-main {
+  padding: 3.5rem 1rem 1rem 1rem;
+}
+
+.loading-state,
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 0;
+  color: #9ca3af;
+}
+
+/* 卡片 */
+.card {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* 任务标题卡片 */
+.priority-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.task-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #111827;
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.status-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.complete-time {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+/* 详细信息卡片 */
+.info-card {
+  overflow: hidden;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #f3f4f6;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.info-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.info-value {
+  font-size: 0.875rem;
+  color: #111827;
+}
+
+.overdue-text {
+  margin-left: 0.25rem;
+}
+
+/* 任务描述 */
+.section-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.task-description {
+  font-size: 0.875rem;
+  color: #374151;
+  white-space: pre-wrap;
+}
+
+/* 操作按钮卡片 */
+.actions-card {
+  overflow: hidden;
+  padding: 0;
+}
+
+.action-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #f3f4f6;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:active {
+    background-color: #f9fafb;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+.action-btn-text {
+  font-size: 0.875rem;
+  color: #111827;
+}
+
+.delete-btn .action-btn-text {
+  color: #ef4444;
+}

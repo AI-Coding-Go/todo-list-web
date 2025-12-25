@@ -1,0 +1,9 @@
+<!-- 路由出口 -->
+<router-outlet />
+
+<!-- 全局提醒栏 -->
+<app-reminder-bar
+  [reminders]="reminders()"
+  (onViewTask)="onViewTask($event)"
+  (onLater)="onLaterReminder()"
+  (onClose)="onCloseReminder()" />

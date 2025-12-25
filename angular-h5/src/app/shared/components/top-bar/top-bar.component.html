@@ -1,0 +1,26 @@
+<header class="top-bar">
+  <!-- 左侧返回按钮 -->
+  <div class="top-bar-left">
+    @if (showBack()) {
+      <button class="top-bar-back" (click)="back.emit()" aria-label="返回">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </button>
+    }
+  </div>
+
+  <!-- 中间标题 -->
+  <h1 class="top-bar-title">{{ title() }}</h1>
+
+  <!-- 右侧操作按钮 -->
+  @if (rightContent()) {
+    <div class="top-bar-right">
+      <button class="top-bar-right-btn" (click)="rightClick.emit()">
+        {{ rightContent() }}
+      </button>
+    </div>
+  } @else {
+    <div class="top-bar-right-placeholder"></div>
+  }
+</header>

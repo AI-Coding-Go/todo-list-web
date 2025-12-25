@@ -1,0 +1,26 @@
+/**
+ * 悬浮新增按钮组件样式
+ */
+
+.fab-button {
+  position: fixed;
+  bottom: 5rem;
+  right: 1rem;
+  z-index: 40;
+  width: 3.5rem;
+  height: 3.5rem;
+  background-color: #3b82f6;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:active {
+    background-color: #2563eb;
+  }
+}

@@ -1,0 +1,130 @@
+/**
+ * 数据统计页样式
+ */
+
+.statistics-page {
+  min-height: 100vh;
+  background-color: #f3f4f6;
+  padding-bottom: 2rem;
+}
+
+.statistics-main {
+  padding: 3.5rem 1rem 1rem 1rem;
+}
+
+.loading-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 0;
+  color: #9ca3af;
+}
+
+/* Tab 切换 */
+.chart-tabs {
+  display: flex;
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.chart-tab {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4b5563;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+
+  &.active {
+    background-color: #3b82f6;
+    color: white;
+  }
+}
+
+/* 统计概览 */
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.overview-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.overview-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.overview-total {
+  color: #3b82f6;
+}
+
+.overview-completed {
+  color: #22c55e;
+}
+
+.overview-pending {
+  color: #f59e0b;
+}
+
+.overview-label {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+/* 图表区域 */
+.chart-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
+}
+
+.chart-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 1rem;
+}
+
+.chart-container {
+  position: relative;
+  height: 16rem;
+}
+
+/* 统计说明 */
+.info-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.info-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.info-text {
+  font-size: 0.75rem;
+  color: #6b7280;
+  line-height: 1.5;
+}

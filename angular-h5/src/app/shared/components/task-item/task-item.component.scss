@@ -1,0 +1,20 @@
+/**
+ * 任务列表项组件样式
+ */
+
+.task-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.task-title {
+  margin-left: 0.75rem;
+
+  &.completed {
+    text-decoration: line-through;
+    color: #999;
+  }
+}

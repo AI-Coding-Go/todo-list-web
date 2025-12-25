@@ -1,0 +1,108 @@
+<div class="task-edit-page">
+  <!-- 顶部导航栏 -->
+  <app-top-bar
+    [title]="isEditMode ? '编辑任务' : '新增任务'"
+    [showBack]="true"
+    [rightContent]="'保存'"
+    (back)="onBack()"
+    (rightClick)="onSave()" />
+
+  <!-- 主内容区 -->
+  <main class="task-edit-main">
+    @if (loading && isEditMode) {
+      <div class="loading-state">
+        <span>加载中...</span>
+      </div>
+    } @else {
+      <form [formGroup]="form" class="task-form">
+        <!-- 任务标题 -->
+        <div class="form-section">
+          <input
+            type="text"
+            formControlName="title"
+            class="title-input"
+            placeholder="请输入任务标题"
+            maxlength="50"
+            [disabled]="loading" />
+          <div class="char-count">{{ getTitleCount() }}/50</div>
+        </div>
+
+        <!-- 任务描述 -->
+        <div class="form-section">
+          <label class="form-label">任务描述（可选）</label>
+          <textarea
+            formControlName="description"
+            class="description-input"
+            placeholder="添加任务描述..."
+            maxlength="500"
+            rows="4"
+            [disabled]="loading"></textarea>
+          <div class="char-count">{{ getDescriptionCount() }}/500</div>
+        </div>
+
+        <!-- 截止时间 -->
+        <div class="form-section">
+          <label class="form-label">截止时间（可选）</label>
+          <input
+            type="datetime-local"
+            formControlName="deadline"
+            class="deadline-input"
+            [disabled]="loading" />
+        </div>
+
+        <!-- 优先级选择 -->
+        <div class="form-section">
+          <label class="form-label">优先级</label>
+          <button
+            type="button"
+            class="priority-selector"
+            (click)="onTogglePriorityPicker()"
+            [disabled]="loading">
+            <span class="priority-label" [class]="getCurrentPriorityColor()">
+              {{ getCurrentPriorityLabel() }}优先级
+            </span>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              class="dropdown-icon"
+              [class.rotated]="showPriorityPicker">
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </button>
+
+          @if (showPriorityPicker) {
+            <div class="priority-picker">
+              @for (option of priorityOptions; track option.value) {
+                <button
+                  type="button"
+                  class="priority-option"
+                  [class.active]="f['priority'].value === option.value"
+                  (click)="onSelectPriority(option.value)">
+                  <span [class]="option.colorClass">{{ option.label }}优先级</span>
+                  @if (f['priority'].value === option.value) {
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 13l4 4L19 7" />
+                    </svg>
+                  }
+                </button>
+              }
+            </div>
+          }
+        </div>
+      </form>
+
+      <!-- 取消按钮 -->
+      <button
+        type="button"
+        class="btn-cancel"
+        (click)="onBack()"
+        [disabled]="loading">
+        取消
+      </button>
+    }
+  </main>
+</div>

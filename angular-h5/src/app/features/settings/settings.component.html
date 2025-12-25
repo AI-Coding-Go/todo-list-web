@@ -1,0 +1,72 @@
+<div class="settings-page">
+  <!-- 顶部标题栏 -->
+  <app-top-bar title="设置" />
+
+  <!-- 主内容区 -->
+  <main class="settings-main">
+    <!-- 提醒设置 -->
+    <div class="settings-section">
+      <div class="settings-section-header">
+        <h3 class="settings-section-title">提醒设置</h3>
+      </div>
+
+      <!-- 提醒开关 -->
+      <div class="settings-item">
+        <div class="settings-item-info">
+          <div class="settings-item-label">任务提醒</div>
+          <div class="settings-item-desc">在任务即将到期或逾期时发送提醒</div>
+        </div>
+        <button
+          class="toggle-switch"
+          [class.on]="reminderEnabled()"
+          (click)="onToggleReminder()">
+          <div class="toggle-slider"></div>
+        </button>
+      </div>
+
+      <!-- 浏览器通知权限 -->
+      @if (hasNotificationSupport) {
+        <div class="settings-item">
+          <div class="settings-item-info">
+            <div class="settings-item-label">桌面通知</div>
+            <div class="settings-item-desc">允许浏览器发送桌面通知</div>
+          </div>
+          <button
+            class="permission-btn"
+            [disabled]="notificationPermission === 'granted'"
+            (click)="onRequestPermission()">
+            <span [class]="getPermissionColorClass()">{{ getPermissionText() }}</span>
+          </button>
+        </div>
+      }
+    </div>
+
+    <!-- 关于 -->
+    <div class="settings-section">
+      <div class="settings-section-header">
+        <h3 class="settings-section-title">关于</h3>
+      </div>
+      <div class="settings-item">
+        <span class="settings-item-label">版本号</span>
+        <span class="settings-item-value">{{ getAppVersion() }}</span>
+      </div>
+    </div>
+
+    <!-- 使用说明 -->
+    <div class="settings-section">
+      <div class="settings-section-header">
+        <h3 class="settings-section-title">使用说明</h3>
+      </div>
+      <div class="usage-info">
+        <p>• 点击右下角悬浮按钮可快速添加新任务</p>
+        <p>• 任务列表支持按状态筛选和多种方式排序</p>
+        <p>• 点击任务卡片可查看详情或进行编辑</p>
+        <p>• 统计页面可查看任务完成情况和趋势</p>
+        <p>• 开启提醒后，系统会在任务即将到期时通知您</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- 底部导航栏 -->
+  <app-bottom-nav />
+</div>

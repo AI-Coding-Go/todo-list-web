@@ -1,0 +1,76 @@
+<div class="statistics-page">
+  <!-- 顶部导航栏 -->
+  <app-top-bar
+    title="数据统计"
+    [showBack]="true"
+    (back)="onBack()" />
+
+  <!-- 主内容区 -->
+  <main class="statistics-main">
+    @if (loading) {
+      <div class="loading-state">
+        <span>加载中...</span>
+      </div>
+    } @else if (tasks.length === 0) {
+      <app-empty-state type="statistics" text="暂无统计数据，添加任务后即可查看" />
+    } @else {
+      <!-- Tab 切换 -->
+      <div class="chart-tabs">
+        @for (option of tabOptions; track option.value) {
+          <button
+            class="chart-tab"
+            [class.active]="chartType === option.value"
+            (click)="onSetChartType(option.value)">
+            {{ option.label }}
+          </button>
+        }
+      </div>
+
+      <!-- 统计概览 -->
+      <div class="overview-grid">
+        <div class="overview-card">
+          <div class="overview-value overview-total">{{ getOverviewData().total }}</div>
+          <div class="overview-label">总任务</div>
+        </div>
+        <div class="overview-card">
+          <div class="overview-value overview-completed">{{ getOverviewData().completed }}</div>
+          <div class="overview-label">已完成</div>
+        </div>
+        <div class="overview-card">
+          <div class="overview-value overview-pending">{{ getOverviewData().pending }}</div>
+          <div class="overview-label">未完成</div>
+        </div>
+      </div>
+
+      <!-- 图表区域 -->
+      <div class="chart-card">
+        <h3 class="chart-title">
+          {{ chartTitle() }}
+        </h3>
+        <div class="chart-container">
+          <canvas #chartCanvas></canvas>
+        </div>
+      </div>
+
+      <!-- 统计说明 -->
+      <div class="info-card">
+        <h3 class="info-title">统计说明</h3>
+        @if (chartType === 'completion') {
+          <p class="info-text">
+            展示所有任务的总体完成率以及按优先级分类的完成率。
+            完成率 = 已完成任务数 / 总任务数 × 100%
+          </p>
+        } @else if (chartType === 'trend') {
+          <p class="info-text">
+            展示近 7 天每日新增任务数和完成任务数的趋势变化。
+            蓝色区域表示新增任务，绿色区域表示完成任务。
+          </p>
+        } @else {
+          <p class="info-text">
+            展示当前所有任务中已完成和未完成的数量占比。
+          </p>
+        }
+      </div>
+    }
+  </main>
+</div>

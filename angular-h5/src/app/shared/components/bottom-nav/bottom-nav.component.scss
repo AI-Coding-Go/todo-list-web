@@ -1,0 +1,42 @@
+/**
+ * 底部导航栏组件样式
+ */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: 3.5rem;
+  background-color: white;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.bottom-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-decoration: none;
+  color: #9ca3af;
+
+  &.active {
+    color: #3b82f6;
+  }
+}
+
+.bottom-nav-icon {
+  display: flex;
+  align-items: center;
+}
+
+.bottom-nav-label {
+  font-size: 0.75rem;
+  margin-top: 0.125rem;
+}

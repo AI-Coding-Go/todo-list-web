@@ -1,0 +1,24 @@
+<div class="empty-state">
+  <div class="empty-icon">
+    @if (type() === 'task') {
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="1.5">
+        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+      </svg>
+    } @else {
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="1.5">
+        <path d="M18 20V10M12 20V4M6 20v-6" />
+      </svg>
+    }
+  </div>
+  <p class="empty-text">
+    @if (text()) {
+      {{ text() }}
+    } @else {
+      @if (type() === 'task') {
+        暂无任务，点击右下角添加
+      } @else {
+        暂无统计数据
+      }
+    }
+  </p>
+</div>

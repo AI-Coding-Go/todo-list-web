@@ -1,0 +1,115 @@
+<div class="task-list-page">
+  <!-- 顶部标题栏 -->
+  <app-top-bar title="待办清单" />
+
+  <!-- 主内容区 -->
+  <main class="task-list-main">
+    <!-- 筛选 Tab -->
+    <div class="filter-tabs">
+      @for (option of filterOptions; track option.value) {
+        <button
+          class="filter-tab"
+          [class.active]="filter() === option.value"
+          (click)="onSetFilter(option.value)">
+          {{ option.label }}
+        </button>
+      }
+    </div>
+
+    <!-- 排序按钮 -->
+    <div class="sort-bar">
+      <span class="task-count">共 {{ tasks().length }} 个任务</span>
+      <div class="sort-dropdown">
+        <button class="sort-button" (click)="onToggleSortMenu()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 6h18M7 12h10M10 18h4" />
+          </svg>
+          {{ getCurrentSortLabel() }}
+        </button>
+
+        @if (showSortMenu) {
+          <div class="sort-menu">
+            @for (option of sortOptions; track option.value) {
+              <button
+                class="sort-option"
+                [class.active]="sort() === option.value"
+                (click)="onSetSort(option.value)">
+                {{ option.label }}
+              </button>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- 任务列表 -->
+    @if (loading()) {
+      <div class="loading-state">
+        <span>加载中...</span>
+      </div>
+    } @else if (tasks().length === 0) {
+      <app-empty-state type="task" />
+    } @else {
+      <div class="task-list">
+        @for (task of tasks(); track task.id) {
+          <div
+            class="task-item"
+            [class.completed]="task.status === 'COMPLETED'"
+            (click)="onNavigateToDetail(task.id)">
+            <div class="task-item-content">
+              <!-- 复选框 -->
+              <button
+                class="task-checkbox"
+                (click)="$event.stopPropagation(); onHandleCheckboxChange(task)">
+                <div class="checkbox-box">
+                  @if (task.status === 'COMPLETED') {
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                      <path d="M5 13l4 4L19 7" />
+                    </svg>
+                  }
+                </div>
+              </button>
+
+              <!-- 任务内容 -->
+              <div class="task-info">
+                <div class="task-title-row">
+                  <span class="priority-dot" [class]="getPriorityColor(task.priority)"></span>
+                  <span class="task-title" [class.completed]="task.status === 'COMPLETED'">
+                    {{ task.title.length > 50 ? task.title.slice(0, 50) + '...' : task.title }}
+                  </span>
+                </div>
+                @if (formatDeadline(task); as deadline) {
+                  <span class="task-deadline" [class]="deadline.class">
+                    {{ deadline.text }}
+                  </span>
+                }
+              </div>
+
+              <!-- 删除按钮 -->
+              <button
+                class="task-delete"
+                (click)="$event.stopPropagation(); onHandleDelete(task.id)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </main>
+
+  <!-- 悬浮新增按钮 -->
+  <app-fab-button (click)="onNavigateToNew()" />
+
+  <!-- 底部导航栏 -->
+  <app-bottom-nav />
+
+  <!-- 确认弹窗 -->
+  <app-confirm-dialog
+    [open]="confirmOpen"
+    [title]="confirmTitle"
+    (confirm)="onConfirmDelete()"
+    (cancel)="onCancelDelete()" />
+</div>
